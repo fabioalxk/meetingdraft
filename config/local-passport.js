@@ -51,7 +51,7 @@ module.exports = function (passport) {
             // if there are any errors, return the error
             if (err) { return done(err); }
 
-            // check to see if theres already a user with that email
+            // check to see if there's already a user with that email
             if (user) {
                 return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
             } else {
@@ -62,6 +62,14 @@ module.exports = function (passport) {
                 // set the user's local credentials
                 newUser.local.email = email;
                 newUser.local.password = newUser.generateHash(password); // use the generateHash function in our user model
+
+                //TODO: everyone gets this for now
+                var claims = [];
+                if(newUser.local.email === 'john@johnpapa.net'){
+                    claims.push('accounts');
+                }
+                claims.push('speakers');
+                newUser.local.claims = claims;
 
                 // save the user
                 newUser.save(function (err) {
