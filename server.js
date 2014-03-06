@@ -2,22 +2,21 @@
 
 // set up ======================================================================
 // get all the tools we need
-var express  = require('express');
-var app      = express();
-var port     = process.env.PORT || 8080;
+var express = require('express');
+var app = express();
+var port = process.env.PORT || 8080;
 var mongoose = require('mongoose');
 var passport = require('passport');
-var flash    = require('connect-flash');
-var routes   = require('./app/routes.js');
-var pp       = require('./config/passport');
+var flash = require('connect-flash');
+var routes = require('./routes.js');
+var localPassport = require('./config/local-passport');
 
 var configDB = require('./config/database.js');
 
 // configuration ===============================================================
 mongoose.connect(configDB.url); // connect to our database
 
-pp(passport); // pass passport for configuration
-//require('./config/passport')(passport); // pass passport for configuration
+localPassport(passport); // pass passport for configuration
 
 app.configure(function() {
 
