@@ -13,7 +13,7 @@ var localPassport = require('./config/local-passport');
 
 var configDB = require('./config/database.js');
 
-// configuration ===============================================================
+// configuration
 mongoose.connect(configDB.url); // connect to our database
 
 localPassport(passport); // pass passport for configuration
@@ -37,9 +37,9 @@ app.configure(function() {
 
 });
 
-// routes ======================================================================
+// routes
 routes(app, passport); // load our routes and pass in our app and fully configured passport
 
-// launch ======================================================================
+// launch
 app.listen(port);
 console.log('The magic happens on port ' + port);
