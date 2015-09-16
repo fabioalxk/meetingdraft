@@ -13,6 +13,14 @@ var localPassport = require('./config/local-passport');
 
 var configDB = require('./config/database.js');
 
+var cfenv = require('cfenv');
+
+// serve the files out of ./public as our main files
+app.use(express.static(__dirname + '/views'));
+
+// get the app environment from Cloud Foundry
+var appEnv = cfenv.getAppEnv();
+
 // configuration
 mongoose.connect(configDB.url); // connect to our database
 

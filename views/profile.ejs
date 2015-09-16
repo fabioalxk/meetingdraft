@@ -1,44 +1,101 @@
-<!-- views/profile.ejs -->
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-	<title>Node Authentication</title>
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-	<style>
-		body 		{ padding-top:80px; word-wrap:break-word; }
-	</style>
+	<html lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="http://getbootstrap.com/favicon.ico">
+
+	<title>Meeting Bud</title>
+
+	<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="/css/home.css">
+
 </head>
+
 <body>
-<div class="container">
-    <!-- show any messages that come back -->
-    <% if (message.length > 0) { %>
-    <div class="alert alert-danger"><%= message %></div>
-    <% } %>
 
-	<div class="page-header text-center">
-		<h1><span class="fa fa-anchor"></span> Profile Page</h1>
-		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
-	</div>
+	<nav class="navbar navbar-inverse" style="margin-bottom: 0;">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Meeting Bud</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse ">
+				<ul class="nav navbar-nav visible-xs sprint-xs">
+					
+				</ul>
+				<ul class="nav navbar-nav navbar-left">
 
-	<div class="row">
+					<li><a href="#">Share</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
 
-		<!-- LOCAL INFORMATION -->
-		<div class="col-sm-6">
-			<div class="well">
-				<h3><span class="fa fa-user"></span> Local</h3>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= user.local.email %> <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="/logout">Logout</a></li>
 
-					<p>
-						<strong>id</strong>: <%= user._id %><br>
-						<strong>email</strong>: <%= user.local.email %><br>
-						<strong>password</strong>: <%= user.local.password %>
-					</p>
+						</ul>
+					</li>
+					
+
+				</ul>
+
+				
+				
+			</div><!--/.navbar-collapse -->
+		</div>
+	</nav>
+
+
+	<!-- aside menu -->
+	<div>
+		<div class="col-md-3">
+			<div id="sidebar-wrapper">
+				<ul class="sidebar-nav text-center">
+
+				</ul>
+				<div class="text-center" style="margin: 3em; auto; display: block;">
+					<a href="#" class="plus"><img src="img/plus.png" alt=""></a>					
+				</div>
 
 			</div>
 		</div>
+		<div class="col-md-9">
+			<div class="row">
+				<div class="save-btn text-center">
+					<button type="" class="btn btn-success save" style="margin-top: 2em; width: 50%;">
+						Save
+					</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="content">
 
+				</div>
+
+			</div>
+			
+		</div>
 	</div>
 
-</div>
+
+
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/ie10-viewport-bug-workaround.js"></script>
+	<script src="/js/read.js"></script>
+	<script src="/js/purl.js"></script>
+
 </body>
 </html>

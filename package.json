@@ -1,16 +1,25 @@
 {
-  "name": "node-authentication",
-  "main": "server.js",
-  "dependencies" : {
-    "express" : "~3.4.4",
-    "ejs" : "~0.8.5",
-    "mongoose" : "~3.8.1",
-    "passport" : "~0.1.17",
-    "passport-local" : "~0.1.6",
-    "passport-facebook" : "~1.0.2",
-    "passport-twitter" : "~1.0.2",
-    "passport-google-oauth" : "~0.1.5",
-    "connect-flash" : "~0.1.1",
-    "bcrypt-nodejs" : "latest"
-  }
+	"name": "NodejsStarterApp",
+	"version": "0.0.1",
+	"description": "A sample nodejs app for Bluemix",
+	"scripts": {
+		"start": "node server.js"
+	},
+	"dependencies": {
+		"express" : "~3.4.4",
+	    "ejs" : "~0.8.5",
+	    "mongoose" : "~3.8.1",
+	    "passport" : "~0.1.17",
+	    "passport-local" : "~0.1.6",
+	    "passport-facebook" : "~1.0.2",
+	    "passport-twitter" : "~1.0.2",
+	    "passport-google-oauth" : "~0.1.5",
+	    "connect-flash" : "~0.1.1",
+	    "bcrypt-nodejs" : "latest",
+		"cfenv": "1.0.x"
+	},
+	"repository": {},
+	"engines": {
+		"node": "0.12.x"
+	} 
 }
