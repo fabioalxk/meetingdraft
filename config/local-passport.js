@@ -62,7 +62,8 @@ module.exports = function (passport) {
                 // set the user's local credentials
                 newUser.local.email = email;
                 newUser.local.password = newUser.generateHash(password); // use the generateHash function in our user model
-
+                newUser.local.sprint.push("Take your notes here!");
+                
                 //TODO: everyone gets this for now
                 var claims = [];
                 if(newUser.local.email === 'john@johnpapa.net'){

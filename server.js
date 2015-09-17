@@ -11,6 +11,7 @@ var flash = require('connect-flash');
 var routes = require('./routes.js');
 var localPassport = require('./config/local-passport');
 
+
 var configDB = require('./config/database.js');
 
 var cfenv = require('cfenv');

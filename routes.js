@@ -1,4 +1,6 @@
-// app/routes.js
+var operationSave = require('./config/operationSave');
+var operationPlus = require('./config/operationPlus');
+
 module.exports = function(app, passport) {
 
 	// HOME PAGE (with login links)
@@ -39,9 +41,21 @@ module.exports = function(app, passport) {
 	// we will use route middleware to verify this (the isLoggedIn function)
 	app.get('/profile', isLoggedIn, function(req, res) {
 		res.render('profile.ejs', {
-			user : req.user // get the user out of session and pass to template
-            ,message: 'Logged in'
+			user : req.user, // get the user out of session and pass to template
+            message: 'Logged in'
 		});
+
+	});
+	app.get('/sprint', isLoggedIn, function(req, res) {
+		res.send(req.user);
+	});
+	app.get('/save', isLoggedIn, function(req, res) {
+		operationSave.updateSprint(req);
+
+	});
+	app.get('/plus', isLoggedIn, function(req, res) {
+		operationPlus.insertSprint(req);
+
 	});
 
 	// LOGOUT
