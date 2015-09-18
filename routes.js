@@ -1,5 +1,7 @@
 var operationSave = require('./config/operationSave');
 var operationPlus = require('./config/operationPlus');
+var operationMinus = require('./config/operationMinus');
+var operationShare = require('./config/operationShare');
 
 module.exports = function(app, passport) {
 
@@ -29,6 +31,11 @@ module.exports = function(app, passport) {
 		res.render('signup.ejs', { message: req.flash('signupMessage') });
 	});
 
+	app.get('/share', function(req, res) {
+		// render the page and pass in any flash data if it exists
+		res.render('share.ejs', { });
+	});
+
 	// process the signup form
 	app.post('/signup', passport.authenticate('local-signup', {
 		successRedirect : '/profile', // redirect to the secure profile section
@@ -42,10 +49,11 @@ module.exports = function(app, passport) {
 	app.get('/profile', isLoggedIn, function(req, res) {
 		res.render('profile.ejs', {
 			user : req.user, // get the user out of session and pass to template
-            message: 'Logged in'
+			message: 'Logged in'
 		});
 
 	});
+
 	app.get('/sprint', isLoggedIn, function(req, res) {
 		res.send(req.user);
 	});
@@ -53,8 +61,17 @@ module.exports = function(app, passport) {
 		operationSave.updateSprint(req);
 
 	});
+	app.get('/shareOperation', function(req, res) {
+		// console.log(req.query.email);
+		operationShare.share(req, res);
+		
+	});
 	app.get('/plus', isLoggedIn, function(req, res) {
 		operationPlus.insertSprint(req);
+
+	});
+	app.get('/minus', isLoggedIn, function(req, res) {
+		operationMinus.removeSprint(req);
 
 	});
 
@@ -69,7 +86,7 @@ module.exports = function(app, passport) {
 
         // if user is authenticated in the session, carry on
         if (req.isAuthenticated())
-            return next();
+        	return next();
 
         // if they aren't redirect them to the home page
         res.redirect('/');

@@ -10,7 +10,7 @@
 	<meta name="author" content="">
 	<link rel="icon" href="http://getbootstrap.com/favicon.ico">
 
-	<title>Meeting Bud</title>
+	<title>Meeting Draft</title>
 
 	<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="/css/home.css">
@@ -19,7 +19,7 @@
 <body>
 
 	<nav class="navbar navbar-inverse" style="margin-bottom: 0;">
-		<div class="container">
+		<div class="container navbar-left">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 					<span class="sr-only">Toggle navigation</span>
@@ -27,7 +27,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Meeting Bud</a>
+				<a class="navbar-brand" href="#">Meeting Draft</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse ">
 				<ul class="nav navbar-nav visible-xs sprint-xs">
@@ -35,7 +35,27 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-left">
 
-					<li><a href="#">Share</a></li>
+					<li>
+						<a href="#" class="share" data-toggle="modal" data-target="#myModal">
+							Share
+						</a>
+					</li>
+					<!-- Button trigger modal -->
+				</ul>
+				<ul class="visible-xs nav navbar-nav">
+
+					<li>
+						<a href="#" class="plus" data-toggle="modal" data-target="#myModal">
+							Add Sprint
+						</a>
+					</li>
+					<li>
+						<a href="#" class="minus" data-toggle="modal" data-target="#myModal">
+							Delete Sprint
+						</a>
+					</li>
+
+
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 
@@ -55,7 +75,25 @@
 			</div><!--/.navbar-collapse -->
 		</div>
 	</nav>
-
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Share this link with others!</h4>
+				</div>
+				<div class="modal-body">
+					<a href="http://meetingdraft.mybluemix.net/share?email=<%= user.local.email %>" style="color:blue;">http://meetingdraft.mybluemix.net/share?email=<%= user.local.email %>
+					</a>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<!-- <button type="button" class="btn btn-primary">Copy Link</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- aside menu -->
 	<div>
@@ -65,24 +103,31 @@
 
 				</ul>
 				<div class="text-center" style="margin: 3em; auto; display: block;">
-					<a href="#" class="plus"><img src="img/plus.png" alt=""></a>					
+					<div class="row">
+						<div class="col-md-6 col-sm-6 col-lg-6">
+							<a href="#" class="plus"><img src="/img/plus.png" alt=""></a>		
+						</div>
+						<div class="col-md-6">
+							<a href="#" class="minus"><img src="/img/minus.png" alt=""></a>		
+						</div>
+					</div>
 				</div>
 
 			</div>
 		</div>
 		<div class="col-md-9">
-			<div class="row">
-				<div class="save-btn text-center">
-					<button type="" class="btn btn-success save" style="margin-top: 2em; width: 50%;">
-						Save
-					</button>
-				</div>
-			</div>
+			
 			<div class="row">
 				<div class="content">
 
 				</div>
-
+				<div class="row">
+					<div class="save-btn text-right">
+						<button type="" class="btn btn-success save" style="margin-top: 2em; width: 25%;">
+							Save
+						</button>
+					</div>
+				</div>
 			</div>
 			
 		</div>
