@@ -14,11 +14,16 @@ var getUrlParameter = function getUrlParameter(sParam) {
 };
 
 var anchor = 0;
-anchor = getUrlParameter('anchor');
+if(typeof getUrlParameter('anchor') != 'undefined'){
+	anchor = getUrlParameter('anchor');
+}else{
+	window.history.pushState("", "", '/profile/?anchor=0');
+}
 console.log(anchor);
 var tt;
-var anchorSelected;
+var anchorSelected = 0;
 var t2 = "t2";
+
 
 var updateProfile = function(){
 	$.get('/sprint', function(req) {
@@ -35,7 +40,7 @@ var updateProfile = function(){
 		var setText = function(){
 
 			$(".content").html("<h1 class='text-center'>Sprint " + anchorSelected + "</h1>");
-			$(".content").append("<div class='form-group'><textarea class='form-control textarea' rows='20' id='comment' placeholder='Take your notes here!'>" + tt.local.sprint[anchorSelected] + "</textarea></div>");
+			$(".content").append("<div class='form-group'><textarea id='textArea' class='form-control textarea' rows='20' id='comment' placeholder='Take your notes here!'>" + tt.local.sprint[anchorSelected] + "</textarea></div>");
 		}
 
 		for (var i = 0, len = tt.local.sprint.length; i < len; i++) {
@@ -46,12 +51,13 @@ var updateProfile = function(){
 				$(".sidebar-nav").append("<li><a data-index='"+i+"' href='#'>Sprint "+i+"</a></li>");
 				$(".sprint-xs").append("<li><a class='sprint-anchors' data-index='"+i+"' href='#'>Sprint "+i+"</a></li>");
 			}
-			
+			console.log(i);
 		}
 
 		setText();
 		$(document).on( "click", ".sidebar-nav a", function() {
 			anchorSelected = $(this).attr("data-index");
+			window.history.pushState("", "", '/profile/?anchor=' + anchorSelected);
 			setText();
 		});
 		$(document).on( "click", ".sprint-xs .sprint-anchors", function() {
@@ -65,22 +71,33 @@ var updateProfile = function(){
 	// console.log(user);
 });
 }
+
 updateProfile();
 
 $(document).on( "click", ".plus", function() {
+	
 	save();
 	$.get( "/plus", { email: tt.local.email } )
 	.done(function( data ) {
 		
 	});
-	window.location="/profile/?anchor=" + anchorSelected;
+	//window.location="/profile/?anchor=" + tt.local.sprint.length;
+	window.history.pushState("", "", '/profile/?anchor=' + tt.local.sprint.length);
+	location.reload();
+	
 });
 $(document).on( "click", ".minus", function() {
-	$.get( "/minus", { email: tt.local.email } )
-	.done(function( data ) {
+	if(tt.local.sprint.length > 1){
+
+		$.get( "/minus", { email: tt.local.email } )
+		.done(function( data ) {
+
+		});
+
+		window.history.pushState("", "", '/profile/?anchor=' + (tt.local.sprint.length - 2));
+		location.reload();
 		
-	});
-	window.location="/profile/?anchor=" + anchorSelected;
+	}
 });
 
 var save = function(){
@@ -94,7 +111,9 @@ var save = function(){
 
 $(document).on( "click", ".save", function() {
 	save();
-	window.location="/profile/?anchor=" + anchorSelected;
+	window.history.pushState("", "", '/profile/?anchor=' + anchorSelected);
+	updateProfile();
+	location.reload();
 });
 $(document).on( "click", ".sidebar-nav a", function() {
 	$(".sidebar-nav a").removeClass("active");

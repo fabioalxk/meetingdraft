@@ -16,6 +16,8 @@ var getUrlParameter = function getUrlParameter(sParam) {
 var tt;
 var anchorSelected;
 var userEmail = getUrlParameter('email');
+var anchor = 0;
+anchor = getUrlParameter('anchor');
 // console.log(userEmail);
 
 
@@ -34,12 +36,17 @@ $.get( "/shareOperation", { email: userEmail } )
 	var setText = function(){
 
 		$(".content").html("<h1 class='text-center'>Sprint " + anchorSelected + "</h1>");
-		$(".content").append("<div class='form-group'><textarea disabled class='form-control textarea' rows='20' id='comment' placeholder='Take your notes here!'>" + tt.local.sprint[anchorSelected] + "</textarea></div>");
+		$(".content").append("<div class='form-group'><textarea id='textArea' disabled class='form-control textarea' rows='20' id='comment' placeholder='Take your notes here!'>" + tt.local.sprint[anchorSelected] + "</textarea></div>");
 	}
 
 	for (var i = 0, len = tt.local.sprint.length; i < len; i++) {
-		$(".sidebar-nav").append("<li><a data-index='"+i+"' href='#'>Sprint "+i+"</a></li>");
-		$(".sprint-xs").append("<li><a class='sprint-anchors' data-index='"+i+"' href='#'>Sprint "+i+"</a></li>");
+		if(anchor == i){
+			$(".sidebar-nav").append("<li><a class='active' data-index='"+i+"' href='#'>Sprint "+i+"</a></li>");
+			$(".sprint-xs").append("<li><a class='sprint-anchors' data-index='"+i+"' href='#'>Sprint "+i+"</a></li>");
+		}else{
+			$(".sidebar-nav").append("<li><a data-index='"+i+"' href='#'>Sprint "+i+"</a></li>");
+			$(".sprint-xs").append("<li><a class='sprint-anchors' data-index='"+i+"' href='#'>Sprint "+i+"</a></li>");
+		}
 	}
 
 	setText();
@@ -54,3 +61,7 @@ $.get( "/shareOperation", { email: userEmail } )
 });
 
 
+$(document).on( "click", ".sidebar-nav a", function() {
+	$(".sidebar-nav a").removeClass("active");
+	$(this).addClass("active");
+});

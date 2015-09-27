@@ -10,7 +10,10 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var routes = require('./routes.js');
 var localPassport = require('./config/local-passport');
-
+errorhandler = require('errorhandler'),
+bluemix      = require('./config/bluemix'),
+watson       = require('watson-developer-cloud'),
+extend       = require('util')._extend;
 
 var configDB = require('./config/database.js');
 
@@ -33,8 +36,8 @@ app.configure(function() {
 	app.use(express.logger('dev')); // log every request to the console
 	app.use(express.cookieParser()); // read cookies (needed for auth)
 	//app.use(express.bodyParser()); // get information from html forms
-    app.use(express.json());
-    app.use(express.urlencoded());
+	app.use(express.json());
+	app.use(express.urlencoded());
 
 	app.set('view engine', 'ejs'); // set up ejs for templating
 

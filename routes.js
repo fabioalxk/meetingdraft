@@ -2,6 +2,28 @@ var operationSave = require('./config/operationSave');
 var operationPlus = require('./config/operationPlus');
 var operationMinus = require('./config/operationMinus');
 var operationShare = require('./config/operationShare');
+var operationSpeech = require('./config/textToSpeech');
+
+errorhandler = require('errorhandler'),
+bluemix      = require('./config/bluemix'),
+watson       = require('watson-developer-cloud'),
+extend       = require('util')._extend;
+
+// For local development, put username and password in config
+// or store in your environment
+var credentialsBackup = {
+	url: 'https://stream.watsonplatform.net/text-to-speech/api',
+	version: 'v1',
+	username: 'f1b1f52d-df81-462a-9519-8b20852ce248',
+	password: 'DWhFbANKPyBG',
+};
+
+var credentials = extend(credentialsBackup, bluemix.getServiceCreds('text_to_speech'));
+//var credentials = credentialsBackup;
+
+// Create the service wrappers
+var textToSpeech = watson.text_to_speech(credentials);
+var authorization = watson.authorization(credentials);
 
 module.exports = function(app, passport) {
 
@@ -15,6 +37,21 @@ module.exports = function(app, passport) {
 	app.get('/login', function(req, res) {
 		// render the page and pass in any flash data if it exists
 		res.render('login.ejs', { message: req.flash('loginMessage') });
+	});
+
+	app.get('/synthesize', function(req, res) {
+	  req.query.accept = "audio/wav";
+	  var transcript = textToSpeech.synthesize(req.query);
+
+	  transcript.on('response', function(response) {
+	  	if (req.query.download) {
+	  		response.headers['content-disposition'] = 'attachment; filename=transcript.wav';
+	  	}
+	  });
+	  transcript.on('error', function(error) {
+	  	console.log('Synthesize error: ', error)
+	  });
+	  transcript.pipe(res);
 	});
 
 	// process the login form
@@ -52,6 +89,9 @@ module.exports = function(app, passport) {
 			message: 'Logged in'
 		});
 
+	});
+	app.get('/texttospeech', function(req, res) {
+		operationSpeech.textToSpeech(res);
 	});
 
 	app.get('/sprint', isLoggedIn, function(req, res) {
